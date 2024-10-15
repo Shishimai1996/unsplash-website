@@ -1,0 +1,60 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #ededed;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* body { */
+  /* color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+/* } */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* margin left and right for entire columns*/
+.masonry-grid{
+  display: flex;
+  margin: 50px;
+  width: auto;
+
+}
+/* avoid painting background to the picture */
+.masonry-grid-column {
+  padding-left: 30px; 
+  background-clip: padding-box; 
+}
+
+/* margin bottom for each div as image */
+.masonry-grid-column > div {
+  margin-bottom: 30px;
+}
