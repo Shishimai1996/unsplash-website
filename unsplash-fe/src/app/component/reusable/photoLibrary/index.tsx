@@ -21,8 +21,12 @@ export const PhotoLibrary = observer(() => {
   return (
     <>
       <InfiniteScroll
-        dataLength={photoStore.photo.length}
-        next={photoStore.getAllPhotos}
+        dataLength={photoStore.photosToShow.length}
+        next={() =>
+          photoStore.searchQuery === ""
+            ? photoStore.getAllPhotos()
+            : photoStore.getSearchPhotos()
+        }
         hasMore={photoStore.hasMore}
         loader={<h4>Loading...</h4>}
         endMessage={

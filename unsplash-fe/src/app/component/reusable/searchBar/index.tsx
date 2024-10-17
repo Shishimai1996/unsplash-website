@@ -19,7 +19,6 @@ export const SearchBar: React.FC<{
   }, 100);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     const query = event.target.value;
     debouncedSearch(query);
   };

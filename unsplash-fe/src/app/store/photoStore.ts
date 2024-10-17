@@ -1,5 +1,5 @@
 import axios from "axios";
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 type TImageUrls = {
   raw: string;
@@ -41,11 +41,11 @@ class PhotoStore {
       });
       const newPhotos = response.data;
 
-      this.photo = [...this.photo, ...newPhotos];
-      this.page += 1;
-
-      //conform if the data from API is ended. if so, make it false. otherwise infinite load.
-      if (newPhotos.length === 0 || newPhotos.length < 10) {
+      if (newPhotos.length > 0) {
+        this.photo = [...this.photo, ...newPhotos];
+        this.page += 1;
+      } else {
+        //conform if the data from API is ended. if so, make it false. otherwise infinite load.
         this.hasMore = false;
       }
     } catch (error) {
@@ -54,7 +54,6 @@ class PhotoStore {
   }
 
   async getSearchPhotos() {
-    console.log("query", this.searchQuery);
     if (this.searchQuery === "") {
       this.searchPhoto = [];
       return;
@@ -78,15 +77,20 @@ class PhotoStore {
           };
         }) => ({
           id: photo.id,
-          // title:photo.title,
+
           urls: photo.cover_photo.urls,
           alt_description: photo.cover_photo.alt_description,
           width: photo.cover_photo.width,
           height: photo.cover_photo.height,
         })
       );
-      console.log("searchdataa", newSearchPhotos);
-      this.searchPhoto = [...this.searchPhoto, ...newSearchPhotos];
+      if (newSearchPhotos.length > 0) {
+        this.searchPhoto = [...this.searchPhoto, ...newSearchPhotos];
+        this.page += 1;
+      } else {
+        //conform if the data from API is ended. if so, make it false. otherwise infinite load.
+        this.hasMore = false;
+      }
     } catch (error) {
       console.error("Error get search photos", error);
     }
@@ -94,6 +98,10 @@ class PhotoStore {
 
   setSearchQuery(query: string) {
     this.searchQuery = query;
+    this.page = 1;
+    this.searchPhoto = [];
+    this.hasMore = true;
+
     if (this.searchQuery === "") {
       this.getAllPhotos();
     } else {

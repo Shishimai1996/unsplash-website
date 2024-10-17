@@ -1,12 +1,11 @@
 "use client";
 
+import { Box, Card, Grid2, Stack, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import cardImage from "@public/image/cardImage.avif";
 import Image from "next/image";
 import { SearchBar } from "../../reusable/searchBar";
-import { Box, Card, Grid2, Stack, Typography } from "@mui/material";
-import cardImage from "@public/image/cardImage.avif";
 import { AwardImage } from "../awardImage";
-import { useTheme } from "@mui/material/styles";
-import { observer } from "mobx-react";
 
 export const TitleCard = () => {
   const theme = useTheme();
