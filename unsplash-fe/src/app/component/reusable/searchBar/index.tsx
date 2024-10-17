@@ -1,23 +1,27 @@
 "use client";
 
-import { Box, IconButton, InputBase, Toolbar, Typography } from "@mui/material";
+import { photoStore } from "@/store/photoStore";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import { Box, IconButton, InputBase } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import debounce from "lodash/debounce";
+import { observer } from "mobx-react";
 
 export const SearchBar: React.FC<{
   borderRadius: string;
   height: string;
   width: string;
-}> = ({ borderRadius, height, width }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+}> = observer(({ borderRadius, height, width }) => {
+  const theme = useTheme();
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
+  const debouncedSearch = debounce((query: string) => {
+    photoStore.setSearchQuery(query);
+  }, 100);
 
-  const handleSearchSubmit = () => {
-    console.log("Searching for:", searchQuery);
-    // Perform the search or redirect to a search page with the query
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
+    const query = event.target.value;
+    debouncedSearch(query);
   };
 
   return (
@@ -30,22 +34,21 @@ export const SearchBar: React.FC<{
         display: "flex",
         alignItems: "center",
         px: 2,
+        [theme.breakpoints.down(650)]: {
+          width: "60%",
+        },
       }}
     >
-      <IconButton
-        onClick={handleSearchSubmit}
-        sx={{ color: "secondary.dark" }}
-        aria-label="search"
-      >
+      <IconButton sx={{ color: "secondary.dark" }} aria-label="search">
         <SearchIcon />
       </IconButton>
       <InputBase
         placeholder="Search photos and illustrations"
-        value={searchQuery}
+        value={photoStore.searchQuery}
         onChange={handleSearchChange}
         sx={{ flex: 1, color: "secondary.dark" }}
         inputProps={{ "aria-label": "search" }}
       />
     </Box>
   );
-};
+});

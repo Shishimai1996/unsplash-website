@@ -1,9 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { SearchBar } from "../../reusable/searchBar";
 import { Box, Card, Grid2, Stack, Typography } from "@mui/material";
+import cardImage from "@public/image/cardImage.avif";
+import { AwardImage } from "../awardImage";
+import { useTheme } from "@mui/material/styles";
+import { observer } from "mobx-react";
 
 export const TitleCard = () => {
+  const theme = useTheme();
+
   return (
     <Grid2 container spacing={2} alignItems={"flex-end"} m={5}>
       <Grid2 size={{ xs: 12, md: 6 }}>
@@ -16,6 +23,10 @@ export const TitleCard = () => {
               flexWrap: "wrap",
               justifyContent: "space-between",
               alignItems: "flex-end",
+              [theme.breakpoints.down("md")]: {
+                flexDirection: "column",
+                alignItems: "flex-start",
+              },
             }}
           >
             <Box>
@@ -39,15 +50,51 @@ export const TitleCard = () => {
             bgcolor: "primary.main",
             width: "300px",
             height: "300px",
-            p: "30px",
+            position: "relative",
+            [theme.breakpoints.down(1300)]: {
+              display: "none",
+            },
           }}
         >
-          <Typography variant="h6" color="secondary.main">
-            Unsplash Awards 2024
-          </Typography>
-          <Typography variant="body1" color="secondary.main">
-            Now accepting submissions to the 8th edition of the unsplash Awards
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+              top: "60%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              zIndex: 1,
+              textAlign: "center",
+            }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                overflow: "visible",
+                width: "250px",
+                height: "250px",
+              }}
+            >
+              <AwardImage />
+            </Box>
+            <Box
+              sx={{
+                zIndex: 2,
+                position: "absolute",
+                minWidth: "240px",
+              }}
+            >
+              <Typography variant="h6" color="secondary.main">
+                Unsplash Awards 2024
+              </Typography>
+              <Typography variant="body1" color="secondary.main">
+                Now accepting submissions to the 8th edition of the unsplash
+                Awards 🏆
+              </Typography>
+            </Box>
+          </Box>
         </Card>
       </Grid2>
       <Grid2 size={{ xs: 12, md: 3 }}>
@@ -56,9 +103,13 @@ export const TitleCard = () => {
             bgcolor: "primary.main",
             width: "300px",
             height: "300px",
-            p: "30px",
+            [theme.breakpoints.down("md")]: {
+              display: "none",
+            },
           }}
-        />
+        >
+          <Image src={cardImage} alt={"cardImage"} width={300} height={300} />
+        </Card>
       </Grid2>
     </Grid2>
   );

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PhotosModule } from './photos/photos.module';
 import { ConfigModule } from '@nestjs/config';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -8,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
     PhotosModule,
+    SearchModule,
   ],
 })
 export class AppModule {}

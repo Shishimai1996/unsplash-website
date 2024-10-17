@@ -3,9 +3,8 @@ import { createApi } from 'unsplash-js';
 import fetch from 'node-fetch';
 
 @Injectable()
-export class PhotosService {
+export class SearchService {
   private unsplash;
-
   constructor() {
     this.initUnsplash();
   }
@@ -16,8 +15,12 @@ export class PhotosService {
     });
   }
 
-  async getPhotoList(page: number, perPage: number) {
-    const result = await this.unsplash.photos.list({ page, perPage });
+  async getSearchPhotoList(query: string, page: number, perPage: number) {
+    const result = await this.unsplash.search.getCollections({
+      query,
+      page,
+      perPage,
+    });
 
     if (result.errors) {
       throw new Error(result.errors.join(','));

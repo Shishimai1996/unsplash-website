@@ -4,7 +4,6 @@ import { PhotosService } from './photos.service';
 @Controller('photos')
 export class PhotosController {
   constructor(private readonly photosService: PhotosService) {}
-
   @Get()
   async getPhotos(
     @Query('page') page: number = 1,
