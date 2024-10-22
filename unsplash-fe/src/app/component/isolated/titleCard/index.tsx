@@ -29,7 +29,9 @@ export const TitleCard = () => {
             }}
           >
             <Box>
-              <Typography variant="h1"> Unsplash</Typography>
+              <Typography variant="h1" color="primary.dark">
+                Unsplash
+              </Typography>
               <Typography variant="body1">
                 The internet's source for visuals.
               </Typography>

@@ -3,6 +3,24 @@
 import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
+import { GlobalStyles } from "@mui/system";
+
+const globalStyles = (
+  <GlobalStyles
+    styles={{
+      ".MuiButton-root": {
+        color: "#767676 !important", // Force text color globally
+        borderColor: "#d1d1d1 !important",
+        border: "1px solid transparent",
+      },
+
+      ".MuiButton-root:hover": {
+        color: "#111 !important",
+        borderColor: "#111 !important",
+      },
+    }}
+  />
+);
 
 export default function ThemeWrapper({
   children,
@@ -16,6 +34,7 @@ export default function ThemeWrapper({
       h1: {
         fontWeight: "700",
         fontSize: "40px",
+        lineHeight: 1.2,
       },
       h2: {
         fontWeight: "700",
@@ -23,19 +42,19 @@ export default function ThemeWrapper({
       },
       h3: {
         fontWeight: "700",
-        fontSize: "32px",
-      },
-      h4: {
-        fontWeight: "700",
         fontSize: "24px",
       },
-      h5: {
+      h4: {
         fontWeight: "600",
         fontSize: "20px",
       },
-      h6: {
+      h5: {
         fontWeight: "600",
         fontSize: "18px",
+      },
+      h6: {
+        fontWeight: "500",
+        fontSize: "15px",
       },
 
       body1: {
@@ -51,16 +70,21 @@ export default function ThemeWrapper({
       MuiButton: {
         styleOverrides: {
           root: {
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "16px",
-            backgroundColor:
-              "linear-gradient(180deg, transparent 50%, rgba(10, 20, 30, .02)), #fff;",
-            borderColor: "#d1d1d1",
-            color: "#767676",
+            fontFamily:
+              " -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif",
+            fontSize: "14px",
+            fontWeight: 500,
+            backgroundColor: "linear-gradient(180deg, transparent 50%, #fff;",
+            // borderColor: "#d1d1d1",
+            // border: "1px solid transparent",
+            // color: "#767676 !important",
+            // "& .MuiButton-label": {
+            //   color: "#767676 !important",
+            // },
             // "&:hover": {
-            //   backgroundColor: "#FFF3E3",
-            //   color: "#B88E2F",
-            //   borderColor: "#B88E2F",
+
+            //   color: "primary.main",
+            //   borderColor: "primary.main",
             // },
           },
         },
@@ -85,7 +109,7 @@ export default function ThemeWrapper({
     palette: {
       primary: {
         main: "#000000",
-        light: "#eee",
+        light: "#555",
         dark: "#111",
       },
       secondary: {
@@ -94,11 +118,11 @@ export default function ThemeWrapper({
         light: "#FFF3E3",
       },
       error: {
-        main: "#E97171", // エラーカラー
+        main: "#f15151", // エラーカラー
       },
       warning: {
         main: "#B88E2F",
-        light: "#FCF8F3",
+        light: "#d1d1d1",
         dark: "#B0B0B0",
       },
       success: {
@@ -111,6 +135,7 @@ export default function ThemeWrapper({
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {globalStyles}
       {children}
     </ThemeProvider>
   );

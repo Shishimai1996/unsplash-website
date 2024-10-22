@@ -1,5 +1,6 @@
 "use client";
 
+import { PictureCover } from "@/component/isolated/pictureCover";
 import { photoStore } from "@/store/photoStore";
 import { Box } from "@mui/material";
 import { observer } from "mobx-react";
@@ -41,14 +42,26 @@ export const PhotoLibrary = observer(() => {
           columnClassName="masonry-grid-column"
         >
           {photoStore.photosToShow.map((photo) => (
-            <Box key={photo.id}>
+            <Box
+              key={photo.id}
+              sx={{
+                position: "relative",
+              }}
+            >
               <Image
                 src={photo.urls.regular}
                 alt={photo.alt_description || "Unsplash Image"}
                 width={photo.width}
                 height={photo.height}
-                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
+                  position: "relative",
+                  zIndex: 0,
+                }}
               />
+              <PictureCover photo={photo} />
             </Box>
           ))}
         </Masonry>

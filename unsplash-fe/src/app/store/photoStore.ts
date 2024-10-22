@@ -10,12 +10,24 @@ type TImageUrls = {
   small_s3: string;
 };
 
-type TPhotoItem = {
+type TUser = {
+  id: string;
+  name: string;
+  portfolio_url: string;
+  profile_image: { small: string; medium: string; large: string };
+};
+export type TPhotoItem = {
   id: string;
   urls: TImageUrls;
   alt_description: string;
   width: number;
   height: number;
+  user: TUser;
+};
+
+type TStatistics = {
+  views: number;
+  downloads: number;
 };
 
 class PhotoStore {
@@ -26,6 +38,8 @@ class PhotoStore {
   searchPhoto: TPhotoItem[] = [];
   searchAPI: string = `http://localhost:3001/search/collections`;
   searchQuery: string = "";
+  likedPhotos = new Map<string, boolean>();
+  photoStatistics: TStatistics = { views: 0, downloads: 0 };
 
   constructor() {
     makeAutoObservable(this);
@@ -53,6 +67,19 @@ class PhotoStore {
     }
   }
 
+  async getPhotosStatistics(id: string) {
+    try {
+      const response = await axios.get(`${this.photoAPI}/${id}/statistics`);
+      const newStatistics = response.data;
+      this.photoStatistics = {
+        views: newStatistics.views.total,
+        downloads: newStatistics.downloads.total,
+      };
+    } catch (error) {
+      console.error("Error get photos statistics", error);
+    }
+  }
+
   async getSearchPhotos() {
     if (this.searchQuery === "") {
       this.searchPhoto = [];
@@ -67,21 +94,13 @@ class PhotoStore {
         },
       });
       const newSearchPhotos = response.data.map(
-        (photo: {
-          id: any;
-          cover_photo: {
-            urls: any;
-            alt_description: any;
-            width: any;
-            height: any;
-          };
-        }) => ({
+        (photo: { id: string; cover_photo: TPhotoItem }) => ({
           id: photo.id,
-
           urls: photo.cover_photo.urls,
           alt_description: photo.cover_photo.alt_description,
           width: photo.cover_photo.width,
           height: photo.cover_photo.height,
+          user: photo.cover_photo.user,
         })
       );
       if (newSearchPhotos.length > 0) {
@@ -111,6 +130,15 @@ class PhotoStore {
 
   get photosToShow() {
     return this.searchPhoto.length > 0 ? this.searchPhoto : this.photo;
+  }
+
+  toggleLike(photoId: string) {
+    const currentLikedState = this.likedPhotos.get(photoId) || false;
+    this.likedPhotos.set(photoId, !currentLikedState);
+  }
+
+  isLiked(photoId: string) {
+    return this.likedPhotos.get(photoId) || false;
   }
 }
 
