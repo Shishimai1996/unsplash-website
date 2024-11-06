@@ -22,8 +22,17 @@ export class PhotosService {
     if (result.errors) {
       throw new Error(result.errors.join(','));
     }
-    console.log('response', result.response.results);
+
     return result.response.results;
+  }
+
+  async getPhoto(id: string) {
+    const result = await this.unsplash.photos.get({ photoId: id });
+    if (result.errors) {
+      throw new Error(result.errors.join(','));
+    }
+    console.log('responsekorekorekore', result.response);
+    return result.response;
   }
 
   async getPhotoStatistics(id: string) {
@@ -32,7 +41,7 @@ export class PhotosService {
     if (result.errors) {
       throw new Error(result.errors.join(','));
     }
-    console.log('response', result.response);
+
     return result.response;
   }
 }

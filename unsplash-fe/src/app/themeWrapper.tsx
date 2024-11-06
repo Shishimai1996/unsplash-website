@@ -18,6 +18,9 @@ const globalStyles = (
         color: "#111 !important",
         borderColor: "#111 !important",
       },
+      ".css-1j81r15-MuiButtonBase-root-MuiButton-root": {
+        padding: 0,
+      },
     }}
   />
 );
@@ -75,6 +78,7 @@ export default function ThemeWrapper({
             fontSize: "14px",
             fontWeight: 500,
             backgroundColor: "linear-gradient(180deg, transparent 50%, #fff;",
+
             // borderColor: "#d1d1d1",
             // border: "1px solid transparent",
             // color: "#767676 !important",

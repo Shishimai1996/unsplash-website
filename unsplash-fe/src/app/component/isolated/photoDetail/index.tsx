@@ -14,6 +14,9 @@ import Image from "next/image";
 import { Box, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { observer } from "mobx-react";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
 
 export const PhotoDetail: React.FC<{
   openDetail: boolean;
@@ -22,13 +25,14 @@ export const PhotoDetail: React.FC<{
 }> = observer(({ openDetail, handleCloseDetail, photo }) => {
   useEffect(() => {
     if (photo.id) {
-      photoStore.getPhotosStatistics(photo.id); // 修正
+      photoStore.getPhotosStatistics(photo.id);
+      photoStore.getPhoto(photo.id);
     }
   }, [photo.id]);
 
   const imageNumber = {
-    Views: photoStore.photoStatistics?.views || 0, // デフォルト値
-    Downloads: photoStore.photoStatistics?.downloads || 0, // デフォルト値
+    Views: photoStore.photoStatistics?.views || 0,
+    Downloads: photoStore.photoStatistics?.downloads || 0,
   };
 
   const liked = photoStore.isLiked(photo.id || "");
@@ -90,7 +94,7 @@ export const PhotoDetail: React.FC<{
           alt={photo.alt_description}
           width={1500}
           height={1500}
-          style={{ width: "50%", height: "50%" }}
+          style={{ width: "40%", height: "40%" }}
         />
       </DialogContent>
       <DialogActions
@@ -124,13 +128,28 @@ export const PhotoDetail: React.FC<{
         </Box>
         <Box>
           <Button variant="outlined" onClick={handleCloseDetail}>
-            Share
+            <svg
+              class="rb3jX"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              version="1.1"
+              aria-hidden="false"
+              style="flex-shrink: 0;"
+            >
+              <desc lang="en-US">A forward-right arrow</desc>
+              <path d="M13 20v-5.5c-5.556 0-8.222 1-11 5.5C2 13.25 5.222 8.625 13 7.5V2l9 9-9 9Z"></path>
+            </svg>
+            <span>Share</span>
           </Button>
           <Button variant="outlined" onClick={handleCloseDetail}>
             Info
           </Button>
         </Box>
       </DialogActions>
+      <LocationOnOutlinedIcon color="action" fontSize="small" />
+      <CalendarTodayIcon color="action" fontSize="small" />
+      <VerifiedUserOutlinedIcon color="action" fontSize="small" />
     </Dialog>
   );
 });

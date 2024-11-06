@@ -25,13 +25,19 @@ export type TPhotoItem = {
   user: TUser;
 };
 
+type TPhoto = {
+  location: string;
+  publish: string;
+  license: string;
+};
+
 type TStatistics = {
   views: number;
   downloads: number;
 };
 
 class PhotoStore {
-  photo: TPhotoItem[] = [];
+  photos: TPhotoItem[] = [];
   page: number = 1;
   hasMore: boolean = true;
   photoAPI: string = `http://localhost:3001/photos`;
@@ -40,6 +46,7 @@ class PhotoStore {
   searchQuery: string = "";
   likedPhotos = new Map<string, boolean>();
   photoStatistics: TStatistics = { views: 0, downloads: 0 };
+  photo: TPhoto = { location: "", publish: "", license: "" };
 
   constructor() {
     makeAutoObservable(this);
@@ -56,7 +63,7 @@ class PhotoStore {
       const newPhotos = response.data;
 
       if (newPhotos.length > 0) {
-        this.photo = [...this.photo, ...newPhotos];
+        this.photos = [...this.photos, ...newPhotos];
         this.page += 1;
       } else {
         //conform if the data from API is ended. if so, make it false. otherwise infinite load.
@@ -64,6 +71,20 @@ class PhotoStore {
       }
     } catch (error) {
       console.error("Error get all photos", error);
+    }
+  }
+
+  async getPhoto(id: string) {
+    try {
+      const response = await axios.get(`${this.photoAPI}/${id}`);
+      const newPhoto = response.data;
+      this.photo = {
+        location: newPhoto.location.name,
+        publish: newPhoto.current_user_collections.published_at,
+        license: newPhoto,
+      };
+    } catch (error) {
+      console.error("Error get photo", error);
     }
   }
 
@@ -129,7 +150,7 @@ class PhotoStore {
   }
 
   get photosToShow() {
-    return this.searchPhoto.length > 0 ? this.searchPhoto : this.photo;
+    return this.searchPhoto.length > 0 ? this.searchPhoto : this.photos;
   }
 
   toggleLike(photoId: string) {

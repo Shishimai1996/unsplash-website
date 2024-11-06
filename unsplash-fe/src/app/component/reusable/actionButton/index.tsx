@@ -47,26 +47,15 @@ export const ActionButton: React.FC<ActionButtonProps> = observer(
             transition: "opacity 0.3s ease",
           }}
           className="ActionButton-root"
-          sx={
-            {
-              // bgcolor:
-              //   Icon === FavoriteIcon && liked
-              //     ? "error.main !important"
-              //     : "secondary.main ",
-              // "&:hover": {
-              // bgcolor:
-              //   Icon === FavoriteIcon && liked
-              //     ? "error.main !important"
-              //     : "secondary.main !important",
-              // },
-            }
-          }
           onClick={handleClick}
         >
           <Icon
             style={{
               fontSize: 18,
-              color: Icon === FavoriteIcon && liked ? "#fff" : "#111",
+              color: Icon === FavoriteIcon && liked ? "#fff" : "#767676",
+              "&:hover": {
+                color: "#111",
+              },
             }}
           />
         </Button>
