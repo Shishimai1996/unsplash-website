@@ -2,12 +2,12 @@
     "name": "unsplash-root",
     "private": true,
     "scripts": {
-      "start": "concurrently \"npm:unsplash-fe\" \"npm:unsplash-bf\"",
-      "unsplash-fe": "npm --prefix unsplash-fe run dev",  
-      "unsplash-bf": "npm --prefix unsplash-bf run start:dev"
+        "start": "concurrently \"npm:unsplash-fe\" \"npm:unsplash-bf\"",
+        "unsplash-fe": "npm --prefix unsplash-fe run dev",
+        "unsplash-bf": "npm --prefix unsplash-bf run start:dev"
     },
     "devDependencies": {
-      "concurrently": "^8.0.0"
+        "concurrently": "^8.0.0",
+        "gh-pages": "^6.3.0"
     }
-  }
-  
+}
