@@ -1,9 +1,7 @@
 "useClient";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button, Tooltip, Typography } from "@mui/material";
-import { useState } from "react";
-import { photoStore } from "@/store/photoStore";
+import { Button, Tooltip } from "@mui/material";
 import { observer } from "mobx-react";
 
 interface ActionButtonProps {

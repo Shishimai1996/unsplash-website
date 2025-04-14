@@ -33,7 +33,7 @@ export const TitleCard = () => {
                 Unsplash
               </Typography>
               <Typography variant="body1">
-                The internet's source for visuals.
+                The internet source for visuals.
               </Typography>
               <Typography variant="body1">
                 Powered by creators everywhere.
