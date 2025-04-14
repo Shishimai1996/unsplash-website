@@ -129,13 +129,13 @@ export const PhotoDetail: React.FC<{
         <Box>
           <Button variant="outlined" onClick={handleCloseDetail}>
             <svg
-              class="rb3jX"
+              className="rb3jX"
               width="24"
               height="24"
               viewBox="0 0 24 24"
               version="1.1"
               aria-hidden="false"
-              style="flex-shrink: 0;"
+              style={{ flexShrink: 0 }}
             >
               <desc lang="en-US">A forward-right arrow</desc>
               <path d="M13 20v-5.5c-5.556 0-8.222 1-11 5.5C2 13.25 5.222 8.625 13 7.5V2l9 9-9 9Z"></path>
