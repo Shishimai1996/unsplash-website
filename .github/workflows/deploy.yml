@@ -36,6 +36,8 @@ jobs:
           git config --global user.email "s.amandamy2161@gmail.com"
 
       - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           npm install gh-pages --save-dev
           npm run deploy

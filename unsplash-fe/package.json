@@ -9,7 +9,7 @@
     "lint": "next lint",
     "export": "next export",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out -u \"github-actions[bot] <github-actions[bot]@users.noreply.github.com>\" -r https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/Shishimai1996/unsplash-website.git"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
