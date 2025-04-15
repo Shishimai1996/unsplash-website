@@ -31,11 +31,6 @@ jobs:
           cd unsplash-fe  
           DEPLOY_TARGET=GH_PAGES npm run build
 
-      - name: Export Next.js app
-        run: |
-          cd unsplash-fe  
-          npm run export
-
       - name: Deploy to GitHub Pages
         run: |
           npm install gh-pages --save-dev
