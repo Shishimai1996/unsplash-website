@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +28,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build Next.js app
         run: npm run build
@@ -40,5 +43,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{github.actor}}
         run: |
-          npm install gh-pages --save-dev
-          npm run deploy
+          npx gh-pages -d out \
+            -u "Shishimai1996 s.amandamy2161@gmail.com" \
+            -r https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/unsplash-website.git
