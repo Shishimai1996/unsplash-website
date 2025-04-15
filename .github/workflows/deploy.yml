@@ -1,0 +1,42 @@
+name: Build and Export Next.js App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # Node.js のバージョンを指定します
+
+      - name: Install dependencies
+        run: |
+          cd unsplash-fe  
+          npm install
+
+      - name: Build Next.js app
+        run: |
+          cd unsplash-fe  
+          npm run build
+
+      - name: Export Next.js app
+        run: |
+          cd unsplash-fe  
+          npm run export
+
+      - name: Deploy to GitHub Pages
+        run: |
+          npm install gh-pages --save-dev
+          npm run deploy
