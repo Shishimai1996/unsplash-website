@@ -45,4 +45,4 @@ jobs:
         run: |
           npx gh-pages -d out \
             -u "Shishimai1996 <s.amandamy2161@gmail.com>" \
-            -r https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/unsplash-website.git
+            -r https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/Shishimai1996/unsplash-website.git
