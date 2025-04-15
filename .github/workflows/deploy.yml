@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: unslpash-fe
+        working-directory: unsplash-fe
 
     steps:
       - name: Checkout repository
