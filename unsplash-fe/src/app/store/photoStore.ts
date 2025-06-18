@@ -40,9 +40,9 @@ class PhotoStore {
   photos: TPhotoItem[] = [];
   page: number = 1;
   hasMore: boolean = true;
-  photoAPI: string = `http://localhost:3001/photos`;
+  photoAPI: string = `https://unsplash-website.onrender.com/photos`;
   searchPhoto: TPhotoItem[] = [];
-  searchAPI: string = `http://localhost:3001/search/collections`;
+  searchAPI: string = `https://unsplash-website.onrender.com/search/collections`;
   searchQuery: string = "";
   likedPhotos = new Map<string, boolean>();
   photoStatistics: TStatistics = { views: 0, downloads: 0 };
